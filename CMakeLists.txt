@@ -14,8 +14,34 @@ set(INCLUDE_DIR
 include_directories("${INCLUDE_DIR}")
 
 add_library(GenericTimer STATIC ${PROJECT_SOURCE_DIR}/lib/GenericTimer.c)
+#add_library(png STATIC
+#        )
+add_library(glpng STATIC ${PROJECT_SOURCE_DIR}/lib/glpng.c
+        ${PROJECT_SOURCE_DIR}/lib/png/png.c
+        ${PROJECT_SOURCE_DIR}/lib/png/pngerror.c
+        ${PROJECT_SOURCE_DIR}/lib/png/pngget.c
+        ${PROJECT_SOURCE_DIR}/lib/png/pngmem.c
+        ${PROJECT_SOURCE_DIR}/lib/png/pngread.c
+        ${PROJECT_SOURCE_DIR}/lib/png/pngpread.c
+        ${PROJECT_SOURCE_DIR}/lib/png/pngrio.c
+        ${PROJECT_SOURCE_DIR}/lib/png/pngrtran.c
+        ${PROJECT_SOURCE_DIR}/lib/png/pngrutil.c
+        ${PROJECT_SOURCE_DIR}/lib/png/pngset.c
+        ${PROJECT_SOURCE_DIR}/lib/png/pngtrans.c
+        ${PROJECT_SOURCE_DIR}/lib/zlib/adler32.c
+        ${PROJECT_SOURCE_DIR}/lib/zlib/crc32.c
+        ${PROJECT_SOURCE_DIR}/lib/zlib/infblock.c
+        ${PROJECT_SOURCE_DIR}/lib/zlib/infcodes.c
+        ${PROJECT_SOURCE_DIR}/lib/zlib/inffast.c
+        ${PROJECT_SOURCE_DIR}/lib/zlib/inflate.c
+        ${PROJECT_SOURCE_DIR}/lib/zlib/inftrees.c
+        ${PROJECT_SOURCE_DIR}/lib/zlib/infutil.c
+        ${PROJECT_SOURCE_DIR}/lib/zlib/zutil.c)
 
-set(LIBRARIES GenericTimer)
+set(LIBRARIES
+        GenericTimer
+        glpng
+        )
 
 IF (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     SET(LIBRARIES
