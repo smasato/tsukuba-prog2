@@ -6,17 +6,18 @@ project(prog2 C)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wno-deprecated -std=c11")
 
-set(CMAKE_C_COMPILER gcc)
+set(CMAKE_C_COMPILER /usr/bin/gcc)
 
 set(INCLUDE_DIR
         ${PROJECT_SOURCE_DIR}/include
         )
 include_directories("${INCLUDE_DIR}")
 
-add_library(GenericTimer STATIC ${PROJECT_SOURCE_DIR}/lib/GenericTimer.c)
+add_library(Texture STATIC ${PROJECT_SOURCE_DIR}/lib/Texture.c)
 
 set(LIBRARIES
-        GenericTimer
+        Texture
+        png
         )
 
 IF (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
