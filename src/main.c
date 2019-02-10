@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include "Texture.h"
 
 #ifdef __APPLE__
 
@@ -12,44 +13,84 @@
 
 #endif
 
-#include "GenericTimer.h"
+#define TITLE 0
+#define GAME 1
+#define RANKING_INPUT 2
+#define RANKING 3
+
+int g_Page = 0;
 
 int g_WindowWidth = 512;
 int g_WindowHeight = 512;
 
-int g_AnimationDuration = 10;
-
-double g_PrevTime = 0.0;
+Texture g_Tex[5];
 
 void init(void) {
-    glClearColor(1.0, 1.0, 1.0, 1.0);
-    StartTimer();
+    glClearColor(0.0, 0.0, 0.0, 1.0);
+
+    glOrtho(0, g_WindowWidth, g_WindowHeight, 0, -1, 1);
+    LoadPngAndGetTexture(&g_Tex[0], "src/png/title.png");
+    LoadPngAndGetTexture(&g_Tex[1], "src/png/ranking.png");
 }
 
 void display(void) {
     glClear(GL_COLOR_BUFFER_BIT);
+
+    switch (g_Page) {
+        case TITLE:
+            DrawTexture(&g_Tex[0], 0, 0, g_Tex[0].width, g_Tex[0].width);
+            break;
+        case GAME:
+            break;
+        case RANKING_INPUT:
+            break;
+        case RANKING:
+            DrawTexture(&g_Tex[1], 0, 0, g_Tex[0].width, g_Tex[0].width);
+            break;
+        default:
+            break;
+    }
+
     glutSwapBuffers();
 }
 
 void idle(void) {
-    if (GetRapTime(g_PrevTime) >= g_AnimationDuration) {
-        g_PrevTime = GetTime();
-    }
-    display();
+    glutPostRedisplay();
 }
 
-void keyboard(unsigned char key, int x, int y) {
+void keyboard(unsigned char key, unsigned int x, unsigned int y) {
     switch (key) {
         case 'q':
         case 'Q':
         case '\033':
             exit(0);
+        case 's':
+        case 'S':
+            switch (g_Page) {
+                case TITLE:
+                    g_Page = GAME;
+                    break;
+            }
+        case 'r':
+        case 'R':
+            switch (g_Page) {
+                case TITLE:
+                    g_Page = RANKING;
+                    break;
+            }
+            break;
+        case 't':
+        case 'T':
+            switch (g_Page) {
+                case TITLE:
+                    break;
+                case RANKING:
+                    g_Page = TITLE;
+                    break;
+            }
+            break;
     }
 
-    glutPostRedisplay();
-}
-
-void mouse(int button, int state, int x, int _y) {
     glutPostRedisplay();
 }
 
@@ -61,7 +102,6 @@ int main(int argc, char *argv[]) {
     glutDisplayFunc(display);
     glutIdleFunc(idle);
     glutKeyboardFunc(keyboard);
-    glutMouseFunc(mouse);
     init();
     glutMainLoop();
 
