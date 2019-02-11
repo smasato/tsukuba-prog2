@@ -14,6 +14,7 @@ set(INCLUDE_DIR
 include_directories("${INCLUDE_DIR}")
 
 add_library(Texture STATIC ${PROJECT_SOURCE_DIR}/lib/Texture.c)
+add_library(Ranking STATIC ${PROJECT_SOURCE_DIR}/lib/Ranking.c)
 
 set(LIBRARIES
         Texture
