@@ -1,5 +1,5 @@
-#ifndef __IMAGE_DATA_H__
-#define __IMAGE_DATA_H__
+#ifndef __INCLUDE_TEXTURE_H__
+#define __INCLUDE_TEXTURE_H__
 
 #include <png.h>
 
@@ -26,4 +26,4 @@ int LoadPngAndGetTexture(Texture *texture, char *filename);
 
 void DrawTexture(Texture *texture, int xi, int yi, unsigned int w, unsigned int h);
 
-#endif
+#endif //__INCLUDE_TEXTURE_H__
