@@ -34,3 +34,6 @@ ENDIF ()
 
 add_executable(main ${PROJECT_SOURCE_DIR}/src/main.c)
 target_link_libraries(main ${LIBRARIES})
+
+add_executable(test_ranking ${PROJECT_SOURCE_DIR}/test/ranking.c)
+target_link_libraries(test_ranking Ranking)
