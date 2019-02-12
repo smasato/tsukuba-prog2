@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "Ranking.h"
+#include "Text.h"
 
 void InitRanking(Ranking *ranking) {
     ranking->size = 0;
@@ -81,7 +82,13 @@ void SortRanking(Ranking *ranking) {
     }
 }
 
-void RenderRanking(Ranking *ranking);
+void RenderRanking(Ranking *ranking) {
+    LoadRankingFile(RANKING_DATA_CSV, ranking);
+
+    for (int i = 0; i < ranking->size ; i++) {
+        RenderText(ranking->ranking[i].name, 180, 145 + i * 30);
+    }
+}
 
 void PrintRanking(Ranking *ranking) {
     for (int i = 0; i < ranking->size; i++) {
