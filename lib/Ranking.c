@@ -1,5 +1,5 @@
 //
-// lib/Ranking.h
+// lib/Ranking.c
 //
 
 #include <stdio.h>
