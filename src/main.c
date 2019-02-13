@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include "Texture.h"
+#include "Ranking.h"
 
 #ifdef __APPLE__
 
@@ -24,6 +25,7 @@ int g_WindowWidth = 512;
 int g_WindowHeight = 512;
 
 Texture g_Tex[5];
+Ranking ranking;
 
 void init(void) {
     glClearColor(0.0, 0.0, 0.0, 1.0);
@@ -46,6 +48,7 @@ void display(void) {
             break;
         case RANKING:
             DrawTexture(&g_Tex[1], 0, 0, g_Tex[0].width, g_Tex[0].width);
+            RenderRanking(&ranking);
             break;
         default:
             break;
