@@ -19,6 +19,8 @@ add_library(Text STATIC ${PROJECT_SOURCE_DIR}/lib/Text.c)
 
 set(LIBRARIES
         Texture
+        Ranking
+        Text
         png
         )
 
