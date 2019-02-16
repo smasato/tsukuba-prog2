@@ -27,6 +27,8 @@
 #define MOLAR_N 4
 
 int g_Page = 0;
+int g_Start = 0;
+int g_Score = 0;
 
 int g_WindowWidth = 512;
 int g_WindowHeight = 512;
@@ -35,7 +37,7 @@ unsigned char g_Key = 255;
 
 int g_Molar;
 
-double g_prevTime = 0, g_rapTime = 0;
+time_t g_startTime = 0, g_rapTime = 0;
 
 Texture g_Tex[5];
 Texture g_Molar_Tex[5];
@@ -70,19 +72,27 @@ void keyboardHandlerInGame(unsigned char key) {
 }
 
 void game(void) {
-    if (g_rapTime == 0) {
-        StartTimer();
+    if (g_Start == 0) {
+        g_startTime = GetTime();
         DrawTexture(&g_Tex[GAME], 0, 0, g_Tex[GAME].width, g_Tex[GAME].width);
+        g_Start = 1;
     }
-    g_prevTime = GetTime();
 
-    if (g_rapTime > 60) exit(0);
+    if (g_rapTime > (time_t) 30) {
+        if (CanRankIn(&g_ranking, g_Score) > -1) {
+            g_Page = RANKING_INPUT;
+            return;
+        }
+    }
 
-    if (g_Molar == g_Key)g_Molar = rand() % 5;
+    if (g_Molar == g_Key) {
+        g_Score++;
+        g_Molar = rand() % 5;
+    }
 
     DrawTexture(&g_Molar_Tex[g_Molar], 0, 0, g_Molar_Tex[g_Molar].width, g_Molar_Tex[g_Molar].height);
 
-    g_rapTime = GetRapTime(g_prevTime);
+    g_rapTime = GetRapTime(g_startTime);
 }
 
 void init(void) {
