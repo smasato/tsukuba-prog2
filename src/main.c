@@ -31,8 +31,15 @@ void init(void) {
     glClearColor(0.0, 0.0, 0.0, 1.0);
 
     glOrtho(0, g_WindowWidth, g_WindowHeight, 0, -1, 1);
-    LoadPngAndGetTexture(&g_Tex[0], "src/png/title.png");
-    LoadPngAndGetTexture(&g_Tex[1], "src/png/ranking.png");
+    LoadPngAndGetTexture(&g_Tex[TITLE], "src/png/title.png");
+    LoadPngAndGetTexture(&g_Tex[GAME], "src/png/game.png");
+    LoadPngAndGetTexture(&g_Tex[RANKING], "src/png/ranking.png");
+
+    LoadPngAndGetTexture(&g_Molar_Tex[MOLAR_G], "src/png/game/game_g.png");
+    LoadPngAndGetTexture(&g_Molar_Tex[MOLAR_H], "src/png/game/game_h.png");
+    LoadPngAndGetTexture(&g_Molar_Tex[MOLAR_V], "src/png/game/game_v.png");
+    LoadPngAndGetTexture(&g_Molar_Tex[MOLAR_B], "src/png/game/game_b.png");
+    LoadPngAndGetTexture(&g_Molar_Tex[MOLAR_N], "src/png/game/game_n.png");
 }
 
 void display(void) {
