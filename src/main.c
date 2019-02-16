@@ -40,14 +40,14 @@ void display(void) {
 
     switch (g_Page) {
         case TITLE:
-            DrawTexture(&g_Tex[0], 0, 0, g_Tex[0].width, g_Tex[0].width);
+            DrawTexture(&g_Tex[TITLE], 0, 0, g_Tex[TITLE].width, g_Tex[TITLE].width);
             break;
         case GAME:
             break;
         case RANKING_INPUT:
             break;
         case RANKING:
-            DrawTexture(&g_Tex[1], 0, 0, g_Tex[0].width, g_Tex[0].width);
+            DrawTexture(&g_Tex[RANKING], 0, 0, g_Tex[RANKING].width, g_Tex[RANKING].width);
             RenderRanking(&ranking);
             break;
         default:
