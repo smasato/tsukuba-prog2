@@ -5,7 +5,7 @@ project(prog2 C)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wno-deprecated -std=c11")
 if (UNIX AND NOT APPLE)
-    set(CMAKE_SHARED_LINKER_FLAGS "-lrt")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -lrt")
 endif (UNIX AND NOT APPLE)
 
 set(CMAKE_C_COMPILER /usr/bin/gcc)
