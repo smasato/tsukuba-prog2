@@ -17,6 +17,9 @@ add_library(Ranking STATIC ${PROJECT_SOURCE_DIR}/lib/Ranking.c)
 add_library(Text STATIC ${PROJECT_SOURCE_DIR}/lib/Text.c)
 add_library(Timer STATIC ${PROJECT_SOURCE_DIR}/lib/Timer.c)
 
+if (UNIX AND NOT APPLE)
+    add_link_options(-lrt)
+endif (UNIX AND NOT APPLE)
 
 set(LIBRARIES
         Texture
