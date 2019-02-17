@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.5)
 set(CMAKE_C_EXTENSIONS OFF)
 
 project(prog2 C)
