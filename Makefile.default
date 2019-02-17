@@ -1,0 +1,29 @@
+#
+# Makefile.default
+#
+
+COMPILER = /usr/bin/gcc
+SHELL := /bin/bash
+
+UNAME := $(shell uname)
+CFLAGS = -Wall -Wextra -Wno-deprecated -pedantic -std=gnu11
+ifeq ($(UNAME), Darwin)
+FRAME += -framework GLUT -framework OpenGL -lpng
+endif
+ifeq ($(UNAME), Linux)
+FRAME  += -lglut -lGL -lGLU -lm -lpng
+endif
+
+INCLUDE = ./include
+
+main: src/main.o lib/Ranking.o lib/Text.o lib/Texture.o lib/Timer.o
+	$(COMPILER) -o $@ $^ $(FRAME)
+
+%.o : %.c
+	$(COMPILER) -c $< -o $@ $(CFLAGS) -I $(INCLUDE)
+run: main
+	./main
+
+.PHONY: clean
+clean:
+	rm -f lib/*.o src/*.o
