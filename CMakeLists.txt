@@ -4,6 +4,9 @@ set(CMAKE_C_EXTENSIONS OFF)
 project(prog2 C)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wno-deprecated -std=c11")
+if (UNIX AND NOT APPLE)
+    set(CMAKE_SHARED_LINKER_FLAGS "-lrt")
+endif (UNIX AND NOT APPLE)
 
 set(CMAKE_C_COMPILER /usr/bin/gcc)
 
@@ -16,10 +19,6 @@ add_library(Texture STATIC ${PROJECT_SOURCE_DIR}/lib/Texture.c)
 add_library(Ranking STATIC ${PROJECT_SOURCE_DIR}/lib/Ranking.c)
 add_library(Text STATIC ${PROJECT_SOURCE_DIR}/lib/Text.c)
 add_library(Timer STATIC ${PROJECT_SOURCE_DIR}/lib/Timer.c)
-
-if (UNIX AND NOT APPLE)
-    add_link_options(-lrt)
-endif (UNIX AND NOT APPLE)
 
 set(LIBRARIES
         Texture
