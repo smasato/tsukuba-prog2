@@ -6,6 +6,8 @@
 #ifdef __APPLE__
 
 #include <GLUT/glut.h>
+#include <Text.h>
+#include <string.h>
 
 #endif
 
@@ -29,6 +31,7 @@
 int g_Page = 0;
 int g_Start = 0;
 int g_Score = 0;
+char g_Name[10] = {'\0'};
 
 int g_WindowWidth = 512;
 int g_WindowHeight = 512;
@@ -71,6 +74,32 @@ void keyboardHandlerInGame(unsigned char key) {
     }
 }
 
+void keyboardHandlerInRankingInput(unsigned char key) {
+    int len = (int) strlen(g_Name);
+    printf("%d\n", key);
+    switch (key) {
+        case 13: // enter
+            g_Page = RANKING;
+            AddToRanking(&g_ranking, g_Score, g_Name);
+            g_Score = 0;
+            g_Name[0] = '\0';
+            g_Start = 0;
+            g_rapTime = 0;
+            break;
+        case 127: // del
+            if (strlen(g_Name) > 0) {
+                g_Name[len - 1] = '\0';
+            }
+            break;
+        default:
+            if (strlen(g_Name) < 9) {
+                g_Name[len] = key;
+                g_Name[len + 1] = '\0';
+            }
+            break;
+    }
+}
+
 void game(void) {
     if (g_Start == 0) {
         g_startTime = GetTime();
@@ -79,10 +108,8 @@ void game(void) {
     }
 
     if (g_rapTime > (time_t) 30) {
-        if (CanRankIn(&g_ranking, g_Score) > -1) {
-            g_Page = RANKING_INPUT;
-            return;
-        }
+        g_Page = RANKING_INPUT;
+        return;
     }
 
     if (g_Molar == g_Key) {
@@ -92,7 +119,28 @@ void game(void) {
 
     DrawTexture(&g_Molar_Tex[g_Molar], 0, 0, g_Molar_Tex[g_Molar].width, g_Molar_Tex[g_Molar].height);
 
+    char time[256];
+    sprintf(time, "remaining time: %2d:%02d", (int) (30 - g_rapTime) / 60, (int) (30 - g_rapTime) % 60);
+    RenderText(time, 80, 480);
+
+    char score[256];
+    sprintf(score, "score: %d", g_Score);
+    RenderText(score, 300, 480);
+
     g_rapTime = GetRapTime(g_startTime);
+}
+
+void rankingInput(void) {
+    if (CanRankIn(&g_ranking, g_Score) > -1) {
+        char *rankingText = "Input your name.";
+        RenderText(rankingText, 180, 300);
+        RenderText(g_Name, 135, 320);
+    } else {
+        char score[256];
+        sprintf(score, "total score: %d", g_Score);
+        RenderText(score, 220, 300);
+    }
+
 }
 
 void init(void) {
@@ -103,6 +151,7 @@ void init(void) {
     glOrtho(0, g_WindowWidth, g_WindowHeight, 0, -1, 1);
     LoadPngAndGetTexture(&g_Tex[TITLE], "src/png/title.png");
     LoadPngAndGetTexture(&g_Tex[GAME], "src/png/game.png");
+    LoadPngAndGetTexture(&g_Tex[RANKING_INPUT], "src/png/ranking_input.png");
     LoadPngAndGetTexture(&g_Tex[RANKING], "src/png/ranking.png");
 
     LoadPngAndGetTexture(&g_Molar_Tex[MOLAR_G], "src/png/game/game_g.png");
@@ -123,6 +172,8 @@ void display(void) {
             game();
             break;
         case RANKING_INPUT:
+            DrawTexture(&g_Tex[RANKING_INPUT], 0, 0, g_Tex[RANKING_INPUT].width, g_Tex[RANKING_INPUT].width);
+            rankingInput();
             break;
         case RANKING:
             DrawTexture(&g_Tex[RANKING], 0, 0, g_Tex[RANKING].width, g_Tex[RANKING].width);
@@ -139,9 +190,11 @@ void idle(void) {
     display();
 }
 
-void keyboard(unsigned char key, unsigned int x, unsigned int y) {
+void keyboard(unsigned char key, __attribute__((unused)) int _x, __attribute__((unused)) int _y) {
     if (g_Page == GAME) {
         keyboardHandlerInGame(key);
+    } else if (g_Page == RANKING_INPUT) {
+        keyboardHandlerInRankingInput(key);
     } else {
         switch (key) {
             case 'q':
