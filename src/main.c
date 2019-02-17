@@ -158,6 +158,8 @@ void init(void) {
     LoadPngAndGetTexture(&g_Molar_Tex[MOLAR_V], "src/png/game/game_v.png");
     LoadPngAndGetTexture(&g_Molar_Tex[MOLAR_B], "src/png/game/game_b.png");
     LoadPngAndGetTexture(&g_Molar_Tex[MOLAR_N], "src/png/game/game_n.png");
+
+    LoadRankingFile("data/ranking_data.csv", &g_ranking);
 }
 
 void display(void) {
@@ -199,6 +201,7 @@ void keyboard(unsigned char key, __attribute__((unused)) int _x, __attribute__((
             case 'q':
             case 'Q':
             case '\033':
+                SaveRankingFile("data/ranking_data.csv", &g_ranking);
                 exit(0);
             case 's':
             case 'S':
