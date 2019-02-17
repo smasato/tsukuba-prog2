@@ -6,3 +6,5 @@ CMakeCache.txt
 data/ranking_data.csv
 main
 test_ranking
+*.dSYM/
+*.cbp
