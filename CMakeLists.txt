@@ -3,10 +3,7 @@ set(CMAKE_C_EXTENSIONS OFF)
 
 project(prog2 C)
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wno-deprecated -std=c11")
-if (UNIX AND NOT APPLE)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -lrt")
-endif (UNIX AND NOT APPLE)
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wno-deprecated -std=gnu11")
 
 set(CMAKE_C_COMPILER /usr/bin/gcc)
 
