@@ -51,7 +51,7 @@ EQUALS = =
 CMAKE_SOURCE_DIR = $(shell pwd)
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = $(join $(shell pwd),/bin)
+CMAKE_BINARY_DIR = $(shell pwd)
 
 #=============================================================================
 # Targets provided globally by CMake.
