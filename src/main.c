@@ -1,13 +1,13 @@
 #include <stdlib.h>
+#include <string.h>
 #include "Texture.h"
 #include "Ranking.h"
 #include "Timer.h"
+#include "Text.h"
 
 #ifdef __APPLE__
 
 #include <GLUT/glut.h>
-#include <Text.h>
-#include <string.h>
 
 #endif
 
