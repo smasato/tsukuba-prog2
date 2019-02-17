@@ -123,8 +123,6 @@ int GetTexture(Texture *texture, Png *png) {
 
     glError();
 
-    fprintf(stderr, "MakeTextureFromImage: texture created\n");
-
     return 1;
 }
 
