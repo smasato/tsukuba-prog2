@@ -55,7 +55,7 @@ int CanRankIn(Ranking *ranking, int score) {
     return -1;
 }
 
-int AddToRanking(Ranking *ranking, int score, char name[20]) {
+int AddToRanking(Ranking *ranking, int score, char name[10]) {
     int i = CanRankIn(ranking, score);
     if (i != -1) {
         ranking->ranking[i].score = score;
@@ -83,10 +83,12 @@ void SortRanking(Ranking *ranking) {
 }
 
 void RenderRanking(Ranking *ranking) {
-    LoadRankingFile(RANKING_DATA_CSV, ranking);
+    SortRanking(ranking);
 
     for (int i = 0; i < ranking->size ; i++) {
-        RenderText(ranking->ranking[i].name, 180, 145 + i * 30);
+        char rankingText[64];
+        sprintf(rankingText, "%s %d", ranking->ranking[i].name, ranking->ranking[i].score);
+        RenderText(rankingText, 180, 145 + i * 30);
     }
 }
 

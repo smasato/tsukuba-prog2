@@ -76,7 +76,6 @@ void keyboardHandlerInGame(unsigned char key) {
 
 void keyboardHandlerInRankingInput(unsigned char key) {
     int len = (int) strlen(g_Name);
-    printf("%d\n", key);
     switch (key) {
         case 13: // enter
             g_Page = RANKING;
