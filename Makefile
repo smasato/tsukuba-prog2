@@ -48,10 +48,10 @@ RM = cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = ./
+CMAKE_SOURCE_DIR = $(shell pwd)
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = ./bin
+CMAKE_BINARY_DIR = $(join $(shell pwd),/bin)
 
 #=============================================================================
 # Targets provided globally by CMake.
