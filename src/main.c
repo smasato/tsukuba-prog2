@@ -32,116 +32,116 @@
 #define MOLAR_B 3
 #define MOLAR_N 4
 
-int g_Page = 0;
-int g_Start = 0;
-int g_Score = 0;
-char g_Name[10] = {'\0'};
+int gPage = 0;
+int gStart = 0;
+int gScore = 0;
+char gName[10] = {'\0'};
 
-int g_WindowWidth = 512;
-int g_WindowHeight = 512;
+int gWindowWidth = 512;
+int gWindowHeight = 512;
 
-unsigned char g_Key = 255;
+unsigned char gKey = 255;
 
-int g_Molar;
+int gMolar;
 
-time_t g_startTime = 0, g_rapTime = 0;
+time_t gStartTime = 0, gRapTime = 0;
 
-Texture g_Tex[5];
-Texture g_Molar_Tex[5];
-Ranking g_ranking;
+Texture gTex[5];
+Texture gMolarTex[5];
+Ranking gRanking;
 
 void keyboardHandlerInGame(unsigned char key) {
     switch (key) {
         case 'g':
         case 'G':
-            g_Key = 0;
+            gKey = 0;
             break;
         case 'h':
         case 'H':
-            g_Key = 1;
+            gKey = 1;
             break;
         case 'v':
         case 'V':
-            g_Key = 2;
+            gKey = 2;
             break;
         case 'b':
         case 'B':
-            g_Key = 3;
+            gKey = 3;
             break;
         case 'n':
         case 'N':
-            g_Key = 4;
+            gKey = 4;
             break;
         default:
-            g_Key = 255;
+            gKey = 255;
             break;
     }
 }
 
 void keyboardHandlerInRankingInput(unsigned char key) {
-    int len = (int) strlen(g_Name);
+    int len = (int) strlen(gName);
     switch (key) {
         case 13: // enter
-            g_Page = RANKING;
-            AddToRanking(&g_ranking, g_Score, g_Name);
-            g_Score = 0;
-            g_Name[0] = '\0';
-            g_Start = 0;
-            g_rapTime = 0;
+            gPage = RANKING;
+            addToRanking(&gRanking, gScore, gName);
+            gScore = 0;
+            gName[0] = '\0';
+            gStart = 0;
+            gRapTime = 0;
             break;
         case 127: // del
-            if (strlen(g_Name) > 0) {
-                g_Name[len - 1] = '\0';
+            if (strlen(gName) > 0) {
+                gName[len - 1] = '\0';
             }
             break;
         default:
-            if (strlen(g_Name) < 9) {
-                g_Name[len] = key;
-                g_Name[len + 1] = '\0';
+            if (strlen(gName) < 9) {
+                gName[len] = key;
+                gName[len + 1] = '\0';
             }
             break;
     }
 }
 
 void game(void) {
-    if (g_Start == 0) {
-        g_startTime = GetTime();
-        DrawTexture(&g_Tex[GAME], 0, 0, g_Tex[GAME].width, g_Tex[GAME].width);
-        g_Start = 1;
+    if (gStart == 0) {
+        gStartTime = getTime();
+        drawTexture(&gTex[GAME], 0, 0, gTex[GAME].width, gTex[GAME].width);
+        gStart = 1;
     }
 
-    if (g_rapTime > (time_t) 30) {
-        g_Page = RANKING_INPUT;
+    if (gRapTime > (time_t) 30) {
+        gPage = RANKING_INPUT;
         return;
     }
 
-    if (g_Molar == g_Key) {
-        g_Score++;
-        g_Molar = rand() % 5;
+    if (gMolar == gKey) {
+        gScore++;
+        gMolar = rand() % 5;
     }
 
-    DrawTexture(&g_Molar_Tex[g_Molar], 0, 0, g_Molar_Tex[g_Molar].width, g_Molar_Tex[g_Molar].height);
+    drawTexture(&gMolarTex[gMolar], 0, 0, gMolarTex[gMolar].width, gMolarTex[gMolar].height);
 
     char time[256];
-    sprintf(time, "remaining time: %2d:%02d", (int) (30 - g_rapTime) / 60, (int) (30 - g_rapTime) % 60);
-    RenderText(time, 80, 480);
+    sprintf(time, "remaining time: %2d:%02d", (int) (30 - gRapTime) / 60, (int) (30 - gRapTime) % 60);
+    renderText(time, 80, 480);
 
     char score[256];
-    sprintf(score, "score: %d", g_Score);
-    RenderText(score, 300, 480);
+    sprintf(score, "score: %d", gScore);
+    renderText(score, 300, 480);
 
-    g_rapTime = GetRapTime(g_startTime);
+    gRapTime = getRapTime(gStartTime);
 }
 
 void rankingInput(void) {
-    if (CanRankIn(&g_ranking, g_Score) > -1) {
+    if (canRankIn(&gRanking, gScore) > -1) {
         char *rankingText = "Input your name.";
-        RenderText(rankingText, 180, 300);
-        RenderText(g_Name, 135, 320);
+        renderText(rankingText, 180, 300);
+        renderText(gName, 135, 320);
     } else {
         char score[256];
-        sprintf(score, "total score: %d", g_Score);
-        RenderText(score, 220, 300);
+        sprintf(score, "total score: %d", gScore);
+        renderText(score, 220, 300);
     }
 
 }
@@ -151,38 +151,38 @@ void init(void) {
 
     glClearColor(0.0, 0.0, 0.0, 1.0);
 
-    glOrtho(0, g_WindowWidth, g_WindowHeight, 0, -1, 1);
-    LoadPngAndGetTexture(&g_Tex[TITLE], "src/png/title.png");
-    LoadPngAndGetTexture(&g_Tex[GAME], "src/png/game.png");
-    LoadPngAndGetTexture(&g_Tex[RANKING_INPUT], "src/png/ranking_input.png");
-    LoadPngAndGetTexture(&g_Tex[RANKING], "src/png/ranking.png");
+    glOrtho(0, gWindowWidth, gWindowHeight, 0, -1, 1);
+    loadPngAndGetTexture(&gTex[TITLE], "src/png/title.png");
+    loadPngAndGetTexture(&gTex[GAME], "src/png/game.png");
+    loadPngAndGetTexture(&gTex[RANKING_INPUT], "src/png/ranking_input.png");
+    loadPngAndGetTexture(&gTex[RANKING], "src/png/ranking.png");
 
-    LoadPngAndGetTexture(&g_Molar_Tex[MOLAR_G], "src/png/game/game_g.png");
-    LoadPngAndGetTexture(&g_Molar_Tex[MOLAR_H], "src/png/game/game_h.png");
-    LoadPngAndGetTexture(&g_Molar_Tex[MOLAR_V], "src/png/game/game_v.png");
-    LoadPngAndGetTexture(&g_Molar_Tex[MOLAR_B], "src/png/game/game_b.png");
-    LoadPngAndGetTexture(&g_Molar_Tex[MOLAR_N], "src/png/game/game_n.png");
+    loadPngAndGetTexture(&gMolarTex[MOLAR_G], "src/png/game/game_g.png");
+    loadPngAndGetTexture(&gMolarTex[MOLAR_H], "src/png/game/game_h.png");
+    loadPngAndGetTexture(&gMolarTex[MOLAR_V], "src/png/game/game_v.png");
+    loadPngAndGetTexture(&gMolarTex[MOLAR_B], "src/png/game/game_b.png");
+    loadPngAndGetTexture(&gMolarTex[MOLAR_N], "src/png/game/game_n.png");
 
-    LoadRankingFile("data/ranking_data.csv", &g_ranking);
+    loadRankingFile("data/ranking_data.csv", &gRanking);
 }
 
 void display(void) {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    switch (g_Page) {
+    switch (gPage) {
         case TITLE:
-            DrawTexture(&g_Tex[TITLE], 0, 0, g_Tex[TITLE].width, g_Tex[TITLE].width);
+            drawTexture(&gTex[TITLE], 0, 0, gTex[TITLE].width, gTex[TITLE].width);
             break;
         case GAME:
             game();
             break;
         case RANKING_INPUT:
-            DrawTexture(&g_Tex[RANKING_INPUT], 0, 0, g_Tex[RANKING_INPUT].width, g_Tex[RANKING_INPUT].width);
+            drawTexture(&gTex[RANKING_INPUT], 0, 0, gTex[RANKING_INPUT].width, gTex[RANKING_INPUT].width);
             rankingInput();
             break;
         case RANKING:
-            DrawTexture(&g_Tex[RANKING], 0, 0, g_Tex[RANKING].width, g_Tex[RANKING].width);
-            RenderRanking(&g_ranking);
+            drawTexture(&gTex[RANKING], 0, 0, gTex[RANKING].width, gTex[RANKING].width);
+            renderRanking(&gRanking);
             break;
         default:
             break;
@@ -196,40 +196,40 @@ void idle(void) {
 }
 
 void keyboard(unsigned char key, __attribute__((unused)) int _x, __attribute__((unused)) int _y) {
-    if (g_Page == GAME) {
+    if (gPage == GAME) {
         keyboardHandlerInGame(key);
-    } else if (g_Page == RANKING_INPUT) {
+    } else if (gPage == RANKING_INPUT) {
         keyboardHandlerInRankingInput(key);
     } else {
         switch (key) {
             case 'q':
             case 'Q':
             case '\033':
-                SaveRankingFile("data/ranking_data.csv", &g_ranking);
+                saveRankingFile("data/ranking_data.csv", &gRanking);
                 exit(0);
             case 's':
             case 'S':
-                switch (g_Page) {
+                switch (gPage) {
                     case TITLE:
-                        g_Page = GAME;
+                        gPage = GAME;
                         break;
                 }
                 break;
             case 'r':
             case 'R':
-                switch (g_Page) {
+                switch (gPage) {
                     case TITLE:
-                        g_Page = RANKING;
+                        gPage = RANKING;
                         break;
                 }
                 break;
             case 't':
             case 'T':
-                switch (g_Page) {
+                switch (gPage) {
                     case TITLE:
                         break;
                     case RANKING:
-                        g_Page = TITLE;
+                        gPage = TITLE;
                         break;
                 }
                 break;
@@ -241,7 +241,7 @@ void keyboard(unsigned char key, __attribute__((unused)) int _x, __attribute__((
 int main(int argc, char *argv[]) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
-    glutInitWindowSize(g_WindowWidth, g_WindowHeight);
+    glutInitWindowSize(gWindowWidth, gWindowHeight);
     glutCreateWindow("prog2");
     glutDisplayFunc(display);
     glutIdleFunc(idle);

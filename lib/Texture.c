@@ -27,7 +27,7 @@
     } \
 }
 
-int LoadPng(Png *png, char *filename) {
+int loadPng(Png *png, char *filename) {
     FILE *fp;
 
     fp = fopen(filename, "rb");
@@ -88,7 +88,7 @@ int LoadPng(Png *png, char *filename) {
     return 1;
 }
 
-int GetTexture(Texture *texture, Png *png) {
+int getTexture(Texture *texture, Png *png) {
     if (png->channels != 1 && png->channels != 3 && png->channels != 4) {
         fprintf(stderr, "Error: invalid channels: %d\n", png->channels);
         return 0;
@@ -129,11 +129,11 @@ int GetTexture(Texture *texture, Png *png) {
     return 1;
 }
 
-int LoadPngAndGetTexture(Texture *texture, char *filename) {
+int loadPngAndGetTexture(Texture *texture, char *filename) {
     Png png;
 
-    if (LoadPng(&png, filename)) {
-        GetTexture(texture, &png);
+    if (loadPng(&png, filename)) {
+        getTexture(texture, &png);
 
         return 1;
     }
@@ -141,7 +141,7 @@ int LoadPngAndGetTexture(Texture *texture, char *filename) {
     return 0;
 }
 
-void DrawTexture(Texture *texture, int xi, int yi, unsigned int w, unsigned int h) {
+void drawTexture(Texture *texture, int xi, int yi, unsigned int w, unsigned int h) {
     glError();
 
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

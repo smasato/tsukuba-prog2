@@ -15,20 +15,20 @@ typedef struct {
     User ranking[10];
 } Ranking;
 
-void InitRanking(Ranking *ranking);
+void initRanking(Ranking *ranking);
 
-int LoadRankingFile(char *filename, Ranking *ranking);
+int loadRankingFile(char *filename, Ranking *ranking);
 
-int SaveRankingFile(char *filename, Ranking *ranking);
+int saveRankingFile(char *filename, Ranking *ranking);
 
-int CanRankIn(Ranking *ranking, int score);
+int canRankIn(Ranking *ranking, int score);
 
-int AddToRanking(Ranking *ranking, int score, char name[20]);
+int addToRanking(Ranking *ranking, int score, char *name);
 
-void SortRanking(Ranking *ranking);
+void sortRanking(Ranking *ranking);
 
-void RenderRanking(Ranking *ranking);
+void renderRanking(Ranking *ranking);
 
-void PrintRanking(Ranking *ranking);
+void printRanking(Ranking *ranking);
 
 #endif // __INCLUDE_RANKING_H__

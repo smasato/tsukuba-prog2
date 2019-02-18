@@ -22,12 +22,12 @@ typedef struct {
     png_byte header[8];
 } Png;
 
-int LoadPng(Png *png, char *filename);
+int loadPng(Png *png, char *filename);
 
-int GetTexture(Texture *texture, Png *png);
+int getTexture(Texture *texture, Png *png);
 
-int LoadPngAndGetTexture(Texture *texture, char *filename);
+int loadPngAndGetTexture(Texture *texture, char *filename);
 
-void DrawTexture(Texture *texture, int xi, int yi, unsigned int w, unsigned int h);
+void drawTexture(Texture *texture, int xi, int yi, unsigned int w, unsigned int h);
 
 #endif // __INCLUDE_TEXTURE_H__

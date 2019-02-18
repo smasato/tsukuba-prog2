@@ -7,11 +7,11 @@
 #include "Ranking.h"
 #include "Text.h"
 
-void InitRanking(Ranking *ranking) {
+void initRanking(Ranking *ranking) {
     ranking->size = 0;
 }
 
-int LoadRankingFile(char *filename, Ranking *ranking) {
+int loadRankingFile(char *filename, Ranking *ranking) {
     FILE *fp = fopen(filename, "r");
     if (fp != NULL) {
         int i;
@@ -29,7 +29,7 @@ int LoadRankingFile(char *filename, Ranking *ranking) {
     }
 }
 
-int SaveRankingFile(char *filename, Ranking *ranking) {
+int saveRankingFile(char *filename, Ranking *ranking) {
     FILE *fp = fopen(filename, "w");
     if (fp != NULL) {
         for (int i = 0; i < ranking->size; i++) {
@@ -44,7 +44,7 @@ int SaveRankingFile(char *filename, Ranking *ranking) {
     }
 }
 
-int CanRankIn(Ranking *ranking, int score) {
+int canRankIn(Ranking *ranking, int score) {
     if (ranking->size < 10) return ranking->size;
     for (int i = 0; i < ranking->size; i++) {
         if (ranking->ranking[i].score < score) {
@@ -55,8 +55,8 @@ int CanRankIn(Ranking *ranking, int score) {
     return -1;
 }
 
-int AddToRanking(Ranking *ranking, int score, char name[10]) {
-    int i = CanRankIn(ranking, score);
+int addToRanking(Ranking *ranking, int score, char *name) {
+    int i = canRankIn(ranking, score);
     if (i != -1) {
         ranking->ranking[i].score = score;
         strcpy(ranking->ranking[i].name, name);
@@ -69,7 +69,7 @@ int AddToRanking(Ranking *ranking, int score, char name[10]) {
     }
 }
 
-void SortRanking(Ranking *ranking) {
+void sortRanking(Ranking *ranking) {
     User tmp;
     for (int i = 0; i < (ranking->size - 1); ++i) {
         for (int j = (ranking->size - 1); j > i; j--) {
@@ -82,17 +82,17 @@ void SortRanking(Ranking *ranking) {
     }
 }
 
-void RenderRanking(Ranking *ranking) {
-    SortRanking(ranking);
+void renderRanking(Ranking *ranking) {
+    sortRanking(ranking);
 
     for (int i = 0; i < ranking->size ; i++) {
         char rankingText[64];
         sprintf(rankingText, "%s %d", ranking->ranking[i].name, ranking->ranking[i].score);
-        RenderText(rankingText, 180, 145 + i * 30);
+        renderText(rankingText, 180, 145 + i * 30);
     }
 }
 
-void PrintRanking(Ranking *ranking) {
+void printRanking(Ranking *ranking) {
     for (int i = 0; i < ranking->size; i++) {
         printf("%s: %d\n", ranking->ranking[i].name, ranking->ranking[i].score);
     }

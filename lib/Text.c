@@ -16,7 +16,7 @@
 
 #include "Text.h"
 
-void RenderText(char *text, int x, int y) {
+void renderText(char *text, int x, int y) {
     glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
 
     glRasterPos2i(x, y);
