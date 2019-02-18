@@ -5,8 +5,6 @@ project(prog2 C)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wno-deprecated -std=gnu11")
 
-set(CMAKE_C_COMPILER /usr/bin/gcc)
-
 set(INCLUDE_DIR
         ${PROJECT_SOURCE_DIR}/include
         )
