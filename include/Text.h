@@ -7,4 +7,4 @@
 
 void RenderText(char *text, int x, int y);
 
-#endif //__INCLUDE_TEXT_H__
+#endif // __INCLUDE_TEXT_H__

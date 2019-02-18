@@ -15,8 +15,6 @@ typedef struct {
     User ranking[10];
 } Ranking;
 
-#define RANKING_DATA_CSV "./data/ranking_data.csv"
-
 void InitRanking(Ranking *ranking);
 
 int LoadRankingFile(char *filename, Ranking *ranking);
@@ -33,4 +31,4 @@ void RenderRanking(Ranking *ranking);
 
 void PrintRanking(Ranking *ranking);
 
-#endif //__INCLUDE_RANKING_H__
+#endif // __INCLUDE_RANKING_H__

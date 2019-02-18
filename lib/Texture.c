@@ -1,10 +1,15 @@
+//
+// lib/Texture.c
+//
+
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include "Texture.h"
 
 #ifdef __APPLE__
 
 #include <GLUT/glut.h>
-#include <string.h>
 
 #endif
 
@@ -21,8 +26,6 @@
         err = glGetError(); \
     } \
 }
-
-#include "Texture.h"
 
 int LoadPng(Png *png, char *filename) {
     FILE *fp;

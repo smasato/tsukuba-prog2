@@ -1,3 +1,7 @@
+//
+// include/Texture.h
+//
+
 #ifndef __INCLUDE_TEXTURE_H__
 #define __INCLUDE_TEXTURE_H__
 
@@ -26,4 +30,4 @@ int LoadPngAndGetTexture(Texture *texture, char *filename);
 
 void DrawTexture(Texture *texture, int xi, int yi, unsigned int w, unsigned int h);
 
-#endif //__INCLUDE_TEXTURE_H__
+#endif // __INCLUDE_TEXTURE_H__
